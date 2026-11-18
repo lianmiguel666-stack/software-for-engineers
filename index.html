@@ -5,15 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Confere Obra</title>
 <meta name="description" content="Meça vigas, pilares e lajes pela foto e confira os erros pela NBR 6118.">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header class="topo">
-  <h1>Confere Obra</h1>
-  <p>Tire uma foto, marque as medidas e veja se a peça está dentro da norma.</p>
+  <div class="marca">
+    <img src="logo.svg" alt="" width="52" height="52">
+    <div>
+      <h1>Confere Obra</h1>
+      <p>Confira peças pela foto e evite os erros mais comuns na obra.</p>
+    </div>
+  </div>
+  <nav class="abas" role="tablist" aria-label="Partes do app">
+    <button type="button" class="aba ativa" role="tab" aria-selected="true" data-aba="peca">Conferir peça</button>
+    <button type="button" class="aba" role="tab" aria-selected="false" data-aba="obra">Checklist da obra</button>
+  </nav>
 </header>
 
-<main>
+<main id="peca">
   <!-- PASSO 1 -->
   <section class="passo" id="passo1">
     <h2><span class="num">1</span> O que você quer conferir?</h2>
@@ -147,7 +157,21 @@
   </section>
 </main>
 
+<main id="obra" hidden>
+  <section class="passo">
+    <h2>Problemas mais comuns na obra</h2>
+    <p class="dica">Toque em cada problema e marque o que já foi conferido. As marcações ficam salvas neste aparelho.</p>
+    <p class="progresso" id="progressoObra" aria-live="polite"></p>
+    <div id="problemas"></div>
+    <div class="botoes">
+      <button type="button" class="botao secundario" id="limparObra">Começar de novo</button>
+      <button type="button" class="botao secundario" onclick="window.print()">Imprimir ou salvar PDF</button>
+    </div>
+  </section>
+</main>
+
 <script src="normas.js"></script>
 <script src="app.js"></script>
+<script src="obra.js"></script>
 </body>
 </html>

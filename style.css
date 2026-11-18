@@ -148,3 +148,45 @@ select:focus, input:focus { outline: 3px solid var(--azul-claro); border-color: 
   body { background: #fff; color: #000; }
   .passo { border: 1px solid #999; break-inside: avoid; }
 }
+
+/* Logo e abas */
+.marca { display: flex; align-items: center; gap: 12px; }
+.marca img { flex: none; border-radius: 12px; }
+.abas { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+.aba {
+  font: inherit; font-weight: 700; font-size: 1.05rem; cursor: pointer;
+  min-height: 52px; border-radius: 12px;
+  background: var(--cartao); color: var(--texto); border: 2px solid var(--borda);
+}
+.aba.ativa { background: var(--azul); border-color: var(--azul); color: #fff; }
+@media (prefers-color-scheme: dark) { .aba.ativa { color: #10141a; } }
+
+/* Checklist da obra */
+.progresso { font-weight: 700; color: var(--azul); margin: 0 0 10px; }
+.problema { border: 1px solid var(--borda); border-radius: 12px; margin: 10px 0; background: var(--fundo); }
+.problema summary {
+  list-style: none; cursor: pointer; padding: 14px 12px;
+  display: flex; align-items: center; gap: 10px; font-weight: 700;
+}
+.problema summary::-webkit-details-marker { display: none; }
+.problema summary::after { content: "+"; margin-left: 4px; font-size: 1.4rem; color: var(--suave); }
+.problema[open] summary::after { content: "–"; }
+.pnum {
+  flex: none; width: 30px; height: 30px; border-radius: 50%;
+  display: inline-grid; place-items: center; background: var(--azul-claro); color: var(--azul);
+}
+.ptitulo { flex: 1; }
+.contagem { font-size: 0.85rem; padding: 3px 10px; border-radius: 99px; background: var(--cartao); color: var(--suave); border: 1px solid var(--borda); white-space: nowrap; }
+.contagem.completo { background: var(--verde-claro); color: var(--verde); border-color: var(--verde); }
+.ptexto { margin: 0 12px 8px; color: var(--suave); }
+.itens { list-style: none; margin: 0; padding: 0 12px; }
+.itens li { border-top: 1px solid var(--borda); }
+.itens label { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; cursor: pointer; }
+.itens input { width: 26px; height: 26px; flex: none; margin: 0; accent-color: var(--verde); }
+.fontes { margin: 4px 12px 14px; font-size: 0.85rem; color: var(--suave); }
+.fontes a { color: var(--azul); }
+@media print {
+  .abas { display: none !important; }
+  .problema { break-inside: avoid; }
+  .problema:not([open]) .itens, .problema:not([open]) .ptexto { display: block; }
+}

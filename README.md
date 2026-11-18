@@ -19,6 +19,12 @@ App simples para engenheiros conferirem **vigas, pilares e lajes de concreto arm
 - Laje: espessura mínima conforme o uso, espessura x vão.
 - Todas: concreto mínimo, fator água/cimento e cobrimento conforme a agressividade do local.
 
+## Checklist da obra
+
+Na aba **Checklist da obra** ficam os 7 problemas mais comuns no canteiro, cada um com itens para marcar:
+projetos que não conversam entre si, atrasos, estouro do orçamento, mão de obra sem treinamento,
+falhas de comunicação, segurança do trabalho e material de baixa qualidade. As marcações ficam salvas no aparelho.
+
 ## Limites
 
 - A medida pela foto tem erro de alguns centímetros e só vale se a referência estiver no mesmo plano da medida e a foto for tirada de frente.
@@ -26,5 +32,5 @@ App simples para engenheiros conferirem **vigas, pilares e lajes de concreto arm
 
 ## Para desenvolvedores
 
-Site estático, sem instalação: `index.html`, `style.css`, `app.js` e `normas.js` (as regras).
+Site estático, sem instalação: `index.html`, `style.css`, `app.js`, `normas.js` (as regras), `obra.js` (checklist da obra) e `logo.svg`.
 Testes das regras: `node --test testes/normas.test.js`.
