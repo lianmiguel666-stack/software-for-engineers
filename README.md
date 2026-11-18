@@ -25,6 +25,12 @@ Na aba **Checklist da obra** ficam os 7 problemas mais comuns no canteiro, cada 
 projetos que não conversam entre si, atrasos, estouro do orçamento, mão de obra sem treinamento,
 falhas de comunicação, segurança do trabalho e material de baixa qualidade. As marcações ficam salvas no aparelho.
 
+## Modelos 3D
+
+Na aba **Modelos 3D** há três modelos prontos para girar e ajustar: **casa**, **estrutura** (pilares, vigas e lajes) e **piscina / reservatório**.
+Mudando as medidas com os botões − e +, o desenho e as contas mudam na hora: área construída e útil, paredes, telhado,
+blocos, concreto de pilares, vigas e lajes, formas, aço estimado, volume de água, impermeabilização e escavação.
+
 ## Limites
 
 - A medida pela foto tem erro de alguns centímetros e só vale se a referência estiver no mesmo plano da medida e a foto for tirada de frente.
@@ -32,5 +38,5 @@ falhas de comunicação, segurança do trabalho e material de baixa qualidade. A
 
 ## Para desenvolvedores
 
-Site estático, sem instalação: `index.html`, `style.css`, `app.js`, `normas.js` (as regras), `obra.js` (checklist da obra) e `logo.svg`.
-Testes das regras: `node --test testes/normas.test.js`.
+Site estático, sem instalação: `index.html`, `style.css`, `app.js`, `normas.js` (as regras), `obra.js` (checklist da obra), `modelo3d.js` (modelos 3D e contas) e `logo.svg`. O 3D usa three.js r128, copiado em `vendor/` (licença MIT).
+Testes: `node --test testes/normas.test.js testes/modelo3d.test.js`.

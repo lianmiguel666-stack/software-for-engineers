@@ -33,9 +33,9 @@
   };
 
   // ---------- Tipo de peça ----------
-  document.querySelectorAll(".tipo").forEach(function (b) {
+  document.querySelectorAll("#passo1 .tipo").forEach(function (b) {
     b.addEventListener("click", function () {
-      document.querySelectorAll(".tipo").forEach(function (x) {
+      document.querySelectorAll("#passo1 .tipo").forEach(function (x) {
         x.classList.remove("ativo"); x.setAttribute("aria-pressed", "false");
       });
       b.classList.add("ativo"); b.setAttribute("aria-pressed", "true");

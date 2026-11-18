@@ -20,6 +20,7 @@
   <nav class="abas" role="tablist" aria-label="Partes do app">
     <button type="button" class="aba ativa" role="tab" aria-selected="true" data-aba="peca">Conferir peça</button>
     <button type="button" class="aba" role="tab" aria-selected="false" data-aba="obra">Checklist da obra</button>
+    <button type="button" class="aba" role="tab" aria-selected="false" data-aba="modelo">Modelos 3D</button>
   </nav>
 </header>
 
@@ -170,8 +171,53 @@
   </section>
 </main>
 
+<main id="modelo" hidden>
+  <section class="passo">
+    <h2><span class="num">1</span> Escolha um modelo</h2>
+    <div class="escolha" role="group" aria-label="Modelo 3D">
+      <button type="button" class="tipo modelo ativo" data-modelo="casa" aria-pressed="true">
+        <svg viewBox="0 0 60 30" aria-hidden="true"><path d="M8 28V14L30 3l22 11v14z"/></svg>
+        Casa
+      </button>
+      <button type="button" class="tipo modelo" data-modelo="estrutura" aria-pressed="false">
+        <svg viewBox="0 0 60 30" aria-hidden="true"><rect x="4" y="3" width="52" height="5"/><rect x="7" y="8" width="5" height="21"/><rect x="27" y="8" width="5" height="21"/><rect x="48" y="8" width="5" height="21"/></svg>
+        Estrutura
+      </button>
+      <button type="button" class="tipo modelo" data-modelo="piscina" aria-pressed="false">
+        <svg viewBox="0 0 60 30" aria-hidden="true"><path d="M3 6h6v16h42V6h6v22H3z"/><rect x="12" y="12" width="36" height="8" opacity=".5"/></svg>
+        Piscina
+      </button>
+    </div>
+  </section>
+
+  <section class="passo">
+    <h2><span class="num">2</span> Veja em 3D</h2>
+    <p class="dica">Arraste para girar. Use dois dedos (ou a rodinha do mouse) para aproximar.</p>
+    <div id="vista3d" class="vista3d"></div>
+    <div class="botoes">
+      <button type="button" class="botao secundario" id="centralizar3d">Centralizar</button>
+      <button type="button" class="botao secundario" id="padrao3d">Voltar às medidas iniciais</button>
+    </div>
+  </section>
+
+  <section class="passo">
+    <h2><span class="num">3</span> Ajuste as medidas</h2>
+    <p class="dica">Use os botões <b>−</b> e <b>+</b> ou digite. O desenho e as contas mudam na hora.</p>
+    <div id="campos3d" class="campos3d"></div>
+  </section>
+
+  <section class="passo">
+    <h2><span class="num">4</span> Áreas e quantidades</h2>
+    <table class="quant"><tbody id="quant3d"></tbody></table>
+    <p class="aviso">Valores aproximados para estudo e orçamento inicial. Confira com o projeto antes de comprar material.</p>
+  </section>
+</main>
+
+<script src="vendor/three.min.js"></script>
+<script src="vendor/OrbitControls.js"></script>
 <script src="normas.js"></script>
 <script src="app.js"></script>
 <script src="obra.js"></script>
+<script src="modelo3d.js"></script>
 </body>
 </html>

@@ -183,9 +183,11 @@
         x.classList.toggle("ativa", ativa);
         x.setAttribute("aria-selected", ativa ? "true" : "false");
       });
-      document.getElementById("peca").hidden = aba !== "peca";
-      document.getElementById("obra").hidden = aba !== "obra";
+      ["peca", "obra", "modelo"].forEach(function (id) {
+        document.getElementById(id).hidden = aba !== id;
+      });
       window.scrollTo(0, 0);
+      if (aba === "modelo" && window.abrirModelo3D) window.abrirModelo3D();
     });
   });
 })();
