@@ -28,3 +28,19 @@ test("aceita vírgula como decimal", () => {
   const r = N.verificar("viga", { largura: "14,5", altura: "40", classe: "II", fck: 25 });
   assert.ok(niveis(r).includes("ok:Largura da viga"));
 });
+test("escada 18 x 28 passa na fórmula de Blondel", () => {
+  const r = N.verificar("escada", { altura: 18, largura: 28, vao: 90 });
+  assert.ok(niveis(r).includes("ok:Fórmula de Blondel"));
+});
+test("degrau de 21 cm dá erro", () => {
+  const r = N.verificar("escada", { altura: 21, largura: 25 });
+  assert.ok(niveis(r).includes("erro:Degrau alto demais"));
+});
+test("porta de 70 cm dá erro", () => {
+  const r = N.verificar("porta", { largura: 70, altura: 210 });
+  assert.ok(niveis(r).includes("erro:Porta estreita"));
+});
+test("parede 4 x 2,8 m tem 11,2 m²", () => {
+  const r = N.verificar("parede", { largura: 400, altura: 280 });
+  assert.ok(r.some((i) => i.texto.startsWith("11,20 m²")));
+});

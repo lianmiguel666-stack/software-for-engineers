@@ -299,10 +299,108 @@
     return r;
   }
 
+
+  // ---------- Escada: altura do degrau (espelho), piso e largura ----------
+  function verificarEscada(d) {
+    var r = [];
+    var piso = num(d.largura), espelho = num(d.altura), larg = num(d.vao);
+    if (!piso || !espelho) {
+      r.push(item("erro", "Faltam medidas", "Meça ou digite a altura do degrau (espelho) e a profundidade do piso.", ""));
+      return r;
+    }
+    var blondel = 2 * espelho + piso;
+    if (blondel < 63 || blondel > 64) {
+      r.push(item(blondel < 60 || blondel > 67 ? "erro" : "atencao", "Degrau desconfortável",
+        "2 x espelho + piso = " + fmt(blondel) + " cm. O ideal fica entre 63 e 64 cm (fórmula de Blondel). " +
+        "Fora disso o passo fica curto ou longo demais e aumenta o risco de queda.",
+        "NBR 9077, item 4.7.3"));
+    } else {
+      r.push(item("ok", "Fórmula de Blondel", "2 x espelho + piso = " + fmt(blondel) + " cm, dentro de 63 a 64 cm.", "NBR 9077, item 4.7.3"));
+    }
+    if (espelho > 19) {
+      r.push(item("erro", "Degrau alto demais", "O espelho tem " + fmt(espelho) + " cm. O máximo é 19 cm (ideal entre 16 e 18 cm).", "NBR 9077, item 4.7.3"));
+    } else if (espelho < 16) {
+      r.push(item("atencao", "Degrau baixo", "O espelho tem " + fmt(espelho) + " cm. O ideal fica entre 16 e 18 cm.", "NBR 9077, item 4.7.3"));
+    } else {
+      r.push(item("ok", "Altura do degrau", fmt(espelho) + " cm (ideal entre 16 e 18 cm).", "NBR 9077, item 4.7.3"));
+    }
+    if (piso < 25) {
+      r.push(item("erro", "Piso curto demais", "O piso tem " + fmt(piso) + " cm. O pé não cabe inteiro; o mínimo recomendado é 28 cm.", "NBR 9077, item 4.7.3"));
+    } else if (piso < 28) {
+      r.push(item("atencao", "Piso um pouco curto", "O piso tem " + fmt(piso) + " cm. O recomendado é entre 28 e 32 cm.", "NBR 9077, item 4.7.3"));
+    } else {
+      r.push(item("ok", "Profundidade do piso", fmt(piso) + " cm (recomendado 28 a 32 cm).", "NBR 9077, item 4.7.3"));
+    }
+    if (larg) {
+      if (larg < 80) {
+        r.push(item("erro", "Escada estreita", "A escada tem " + fmt(larg) + " cm de largura. Abaixo de 80 cm fica difícil passar e carregar móveis.", "Regra prática"));
+      } else if (larg < 110) {
+        r.push(item("atencao", "Largura da escada", fmt(larg) + " cm serve para casa, mas em escada de saída de emergência o mínimo é 1,10 m.", "NBR 9077, item 4.4"));
+      } else {
+        r.push(item("ok", "Largura da escada", fmt(larg) + " cm.", "NBR 9077, item 4.4"));
+      }
+    }
+    return r;
+  }
+
+  // ---------- Porta: vão livre ----------
+  function verificarPorta(d) {
+    var r = [];
+    var larg = num(d.largura), alt = num(d.altura);
+    if (!larg || !alt) {
+      r.push(item("erro", "Faltam medidas", "Meça ou digite a largura e a altura do vão livre da porta.", ""));
+      return r;
+    }
+    if (larg < 80) {
+      r.push(item("erro", "Porta estreita", "O vão livre tem " + fmt(larg) + " cm. Para passar cadeira de rodas o mínimo é 80 cm.", "NBR 9050, item 6.11.2.4"));
+    } else {
+      r.push(item("ok", "Largura da porta", fmt(larg) + " cm atende o mínimo de 80 cm de vão livre.", "NBR 9050, item 6.11.2.4"));
+    }
+    if (alt < 210) {
+      r.push(item(alt < 200 ? "erro" : "atencao", "Porta baixa", "A altura é " + fmt(alt) + " cm. O padrão mínimo é 2,10 m.", "NBR 9050, item 6.11.2.4"));
+    } else {
+      r.push(item("ok", "Altura da porta", fmt(alt) + " cm atende o mínimo de 2,10 m.", "NBR 9050, item 6.11.2.4"));
+    }
+    return r;
+  }
+
+  // ---------- Parede: quantidades ----------
+  function verificarParede(d) {
+    var r = [];
+    var comp = num(d.largura), alt = num(d.altura), esp = num(d.vao);
+    if (!comp || !alt) {
+      r.push(item("erro", "Faltam medidas", "Meça ou digite o comprimento e a altura da parede.", ""));
+      return r;
+    }
+    var area = comp * alt / 10000;
+    r.push(item("ok", "Área da parede", fmt(area, 2) + " m² (um lado).", ""));
+    r.push(item("ok", "Blocos de 14 x 19 x 39 cm", "Cerca de " + Math.ceil(area * 12.5 * 1.05) + " blocos (12,5 por m² + 5% de perda).", ""));
+    r.push(item("ok", "Reboco e pintura", fmt(area * 2, 2) + " m² somando os dois lados.", ""));
+    if (esp) {
+      if (esp < 9) {
+        r.push(item("erro", "Parede fina demais", "Com " + fmt(esp) + " cm a parede não fecha com bloco comum e trinca fácil. Use no mínimo 9 cm de bloco mais o reboco.", "Regra prática"));
+      } else if (esp < 14 && d.estrutural) {
+        r.push(item("erro", "Parede estrutural fina", "Alvenaria estrutural precisa de bloco de pelo menos 14 cm.", "NBR 16868-1"));
+      } else {
+        r.push(item("ok", "Espessura", fmt(esp) + " cm.", ""));
+      }
+    }
+    if (alt > 300 && (!esp || esp < 19)) {
+      r.push(item("atencao", "Parede alta", "Parede com mais de 3 m de altura precisa de cinta ou pilarete no meio para não tombar ou trincar.", "Regra prática"));
+    }
+    if (comp > 500) {
+      r.push(item("atencao", "Parede comprida", "Parede com mais de 5 m sem travamento precisa de pilarete ou junta para evitar trincas.", "Regra prática"));
+    }
+    return r;
+  }
+
   function verificar(tipo, dados) {
     var r;
     if (tipo === "viga") r = verificarViga(dados);
     else if (tipo === "pilar") r = verificarPilar(dados);
+    else if (tipo === "escada") r = verificarEscada(dados);
+    else if (tipo === "porta") r = verificarPorta(dados);
+    else if (tipo === "parede") r = verificarParede(dados);
     else r = verificarLaje(dados);
     var ordem = { erro: 0, atencao: 1, ok: 2 };
     return r.sort(function (x, y) { return ordem[x.nivel] - ordem[y.nivel]; });

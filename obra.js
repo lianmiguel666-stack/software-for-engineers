@@ -182,8 +182,10 @@
       x.classList.toggle("ativa", ativa);
       x.setAttribute("aria-selected", ativa ? "true" : "false");
     });
-    ["inicio", "peca", "obra", "modelo"].forEach(function (id) {
-      document.getElementById(id).hidden = aba !== id;
+    ["inicio", "peca", "obra", "modelo", "calc"].forEach(function (id) {
+      var el = document.getElementById(id);
+      el.hidden = aba !== id;
+      if (!el.hidden) { el.classList.remove("entrando"); void el.offsetWidth; el.classList.add("entrando"); }
     });
     window.scrollTo(0, 0);
     if (aba === "modelo" && window.abrirModelo3D) window.abrirModelo3D();

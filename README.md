@@ -19,6 +19,17 @@ App simples para engenheiros: tela inicial com três partes. Confere **vigas, pi
 - Laje: espessura mínima conforme o uso, espessura x vão.
 - Todas: concreto mínimo, fator água/cimento e cobrimento conforme a agressividade do local.
 
+## Mais medições pela foto
+
+Além de viga, pilar e laje, o app mede e confere **escada** (fórmula de Blondel, altura do degrau e piso, NBR 9077),
+**porta** (vão livre mínimo de 80 x 210 cm, NBR 9050) e **parede** (área, blocos, reboco e avisos de parede alta ou comprida).
+A foto pode ser tirada na hora, enviada da galeria, arrastada para a página ou colada com Ctrl+V.
+
+## Calculadora
+
+Calculadora comum (com teclado), cálculos de obra (concreto com traço, piso, blocos, peso do aço, tinta) e conversor de unidades
+(comprimento, área, volume, pressão e força).
+
 ## Checklist da obra
 
 Na aba **Checklist da obra** ficam os 7 problemas mais comuns no canteiro, cada um com itens para marcar:
@@ -39,4 +50,4 @@ blocos, concreto de pilares, vigas e lajes, formas, aço estimado, volume de ág
 ## Para desenvolvedores
 
 Site estático, sem instalação: `index.html`, `style.css`, `app.js`, `normas.js` (as regras), `obra.js` (checklist da obra), `modelo3d.js` (modelos 3D e contas) e `logo.svg`. O 3D usa three.js r128, copiado em `vendor/` (licença MIT).
-Testes: `node --test testes/normas.test.js testes/modelo3d.test.js`.
+Testes: `node --test testes/normas.test.js testes/modelo3d.test.js testes/calculadora.test.js`.
