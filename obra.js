@@ -174,20 +174,22 @@
 
   atualizar();
 
-  // ---------- Abas ----------
-  document.querySelectorAll(".aba").forEach(function (b) {
-    b.addEventListener("click", function () {
-      var aba = b.dataset.aba;
-      document.querySelectorAll(".aba").forEach(function (x) {
-        var ativa = x === b;
-        x.classList.toggle("ativa", ativa);
-        x.setAttribute("aria-selected", ativa ? "true" : "false");
-      });
-      ["peca", "obra", "modelo"].forEach(function (id) {
-        document.getElementById(id).hidden = aba !== id;
-      });
-      window.scrollTo(0, 0);
-      if (aba === "modelo" && window.abrirModelo3D) window.abrirModelo3D();
+  // ---------- Navegação: tela inicial e abas ----------
+  function irPara(aba) {
+    document.getElementById("abas").hidden = aba === "inicio";
+    document.querySelectorAll(".aba[role=tab]").forEach(function (x) {
+      var ativa = x.dataset.aba === aba;
+      x.classList.toggle("ativa", ativa);
+      x.setAttribute("aria-selected", ativa ? "true" : "false");
     });
+    ["inicio", "peca", "obra", "modelo"].forEach(function (id) {
+      document.getElementById(id).hidden = aba !== id;
+    });
+    window.scrollTo(0, 0);
+    if (aba === "modelo" && window.abrirModelo3D) window.abrirModelo3D();
+  }
+  document.querySelectorAll(".aba, .cartao").forEach(function (b) {
+    b.addEventListener("click", function () { irPara(b.dataset.aba); });
   });
+  document.getElementById("irInicio").addEventListener("click", function () { irPara("inicio"); });
 })();

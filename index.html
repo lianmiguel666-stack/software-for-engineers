@@ -3,28 +3,62 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Confere Obra</title>
-<meta name="description" content="Meça vigas, pilares e lajes pela foto e confira os erros pela NBR 6118.">
+<title>Software de Engenheiro</title>
+<meta name="description" content="Software de Engenheiro: confira peças pela foto pela NBR 6118, siga o checklist da obra e calcule áreas em modelos 3D.">
 <link rel="icon" href="logo.svg" type="image/svg+xml">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header class="topo">
-  <div class="marca">
+  <button type="button" class="marca" id="irInicio" aria-label="Ir para a tela inicial">
     <img src="logo.svg" alt="" width="52" height="52">
-    <div>
-      <h1>Confere Obra</h1>
-      <p>Confira peças pela foto e evite os erros mais comuns na obra.</p>
-    </div>
-  </div>
-  <nav class="abas" role="tablist" aria-label="Partes do app">
-    <button type="button" class="aba ativa" role="tab" aria-selected="true" data-aba="peca">Conferir peça</button>
+    <span>
+      <span class="nome">Software de Engenheiro</span>
+      <span class="slogan">Menos erro no projeto, menos retrabalho na obra.</span>
+    </span>
+  </button>
+  <nav class="abas" id="abas" role="tablist" aria-label="Partes do app" hidden>
+    <button type="button" class="aba inicio" data-aba="inicio" aria-label="Início">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8v10h-6v-6H9v6H3z"/></svg>
+    </button>
+    <button type="button" class="aba" role="tab" aria-selected="false" data-aba="peca">Conferir peça</button>
     <button type="button" class="aba" role="tab" aria-selected="false" data-aba="obra">Checklist da obra</button>
     <button type="button" class="aba" role="tab" aria-selected="false" data-aba="modelo">Modelos 3D</button>
   </nav>
 </header>
 
-<main id="peca">
+<main id="inicio">
+  <h1 class="saudacao">O que você quer fazer hoje?</h1>
+  <div class="cartoes">
+    <button type="button" class="cartao" data-aba="peca">
+      <span class="icone azul"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="12" width="36" height="26" rx="4"/><circle cx="24" cy="25" r="8" fill="#1d5fd1"/><circle cx="24" cy="25" r="4" fill="#fff"/><rect x="16" y="7" width="16" height="7" rx="2"/></svg></span>
+      <span class="texto">
+        <span class="titulo">Conferir peça pela foto</span>
+        <span class="desc">Tire uma foto da viga, pilar ou laje. O app mede e mostra os erros pela NBR 6118.</span>
+      </span>
+      <span class="seta" aria-hidden="true">›</span>
+    </button>
+    <button type="button" class="cartao" data-aba="obra">
+      <span class="icone verde"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="9" y="6" width="30" height="38" rx="4"/><path d="M15 18l3 3 6-6M15 30l3 3 6-6" fill="none" stroke="#1f8a4c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><rect x="27" y="17" width="7" height="3" rx="1.5" fill="#1f8a4c"/><rect x="27" y="29" width="7" height="3" rx="1.5" fill="#1f8a4c"/></svg></span>
+      <span class="texto">
+        <span class="titulo">Checklist da obra</span>
+        <span class="desc">Os 7 problemas mais comuns no canteiro, com itens para marcar.</span>
+      </span>
+      <span class="seta" aria-hidden="true">›</span>
+    </button>
+    <button type="button" class="cartao" data-aba="modelo">
+      <span class="icone laranja"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4l18 10v20L24 44 6 34V14z"/><path d="M24 24L6 14M24 24l18-10M24 24v20" fill="none" stroke="#c8562d" stroke-width="2.5"/></svg></span>
+      <span class="texto">
+        <span class="titulo">Modelos 3D e áreas</span>
+        <span class="desc">Casa, estrutura e piscina em 3D. Mude as medidas e veja áreas, concreto e materiais.</span>
+      </span>
+      <span class="seta" aria-hidden="true">›</span>
+    </button>
+  </div>
+  <p class="aviso">Este app ajuda a evitar erros, mas não substitui o cálculo estrutural nem a responsabilidade do engenheiro (ART).</p>
+</main>
+
+<main id="peca" hidden>
   <!-- PASSO 1 -->
   <section class="passo" id="passo1">
     <h2><span class="num">1</span> O que você quer conferir?</h2>

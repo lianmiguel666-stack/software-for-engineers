@@ -150,9 +150,14 @@ select:focus, input:focus { outline: 3px solid var(--azul-claro); border-color: 
 }
 
 /* Logo e abas */
-.marca { display: flex; align-items: center; gap: 12px; }
+.marca {
+  display: flex; align-items: center; gap: 12px; text-align: left;
+  font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer;
+}
 .marca img { flex: none; border-radius: 12px; }
-.abas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+.marca .nome { display: block; font-size: 1.55rem; font-weight: 800; line-height: 1.15; }
+.marca .slogan { display: block; color: var(--suave); }
+.abas { display: grid; grid-template-columns: 52px repeat(3, 1fr); gap: 8px; margin-top: 14px; }
 .aba {
   font: inherit; font-weight: 700; font-size: 1.05rem; cursor: pointer;
   min-height: 52px; border-radius: 12px;
@@ -211,3 +216,26 @@ select:focus, input:focus { outline: 3px solid var(--azul-claro); border-color: 
 .quant tr:first-child td { border-top: 0; }
 .quant .valor { text-align: right; font-weight: 700; font-size: 1.1rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .quant .nota { display: block; color: var(--suave); font-size: 0.85rem; }
+
+.aba.inicio { display: grid; place-items: center; padding: 0; }
+.aba.inicio svg { width: 24px; height: 24px; fill: var(--azul); }
+
+/* Tela inicial */
+.saudacao { font-size: 1.35rem; margin: 18px 0 12px; }
+.cartoes { display: grid; gap: 14px; }
+.cartao {
+  font: inherit; color: var(--texto); text-align: left; cursor: pointer;
+  display: flex; align-items: center; gap: 16px;
+  background: var(--cartao); border: 2px solid var(--borda); border-radius: 16px;
+  padding: 18px 16px; min-height: 110px;
+}
+.cartao:hover, .cartao:focus-visible { border-color: var(--azul); }
+.cartao .icone { flex: none; width: 64px; height: 64px; border-radius: 16px; display: grid; place-items: center; }
+.cartao .icone svg { width: 40px; height: 40px; fill: #fff; }
+.icone.azul { background: #1d5fd1; }
+.icone.verde { background: #1f8a4c; }
+.icone.laranja { background: #c8562d; }
+.cartao .texto { flex: 1; min-width: 0; }
+.cartao .titulo { display: block; font-weight: 800; font-size: 1.2rem; }
+.cartao .desc { display: block; color: var(--suave); margin-top: 2px; }
+.cartao .seta { font-size: 2.2rem; color: var(--azul); line-height: 1; }

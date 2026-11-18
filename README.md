@@ -1,6 +1,6 @@
-# Confere Obra
+# Software de Engenheiro
 
-App simples para engenheiros conferirem **vigas, pilares e lajes de concreto armado** pela **NBR 6118**.
+App simples para engenheiros: tela inicial com três partes. Confere **vigas, pilares e lajes de concreto armado** pela **NBR 6118**.
 
 **Abrir o app:** https://lianmiguel666-stack.github.io/software-for-engineers/
 
