@@ -38,7 +38,7 @@
 html { font-size: 18px; }
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   background: var(--fundo);
   color: var(--texto);
   line-height: 1.45;
@@ -278,3 +278,29 @@ select:focus, input:focus { outline: 3px solid var(--azul-claro); border-color: 
   .carregando, .carregando .barra span { transition: none; animation: none; width: 100%; }
 }
 @media print { .carregando { display: none !important; } }
+
+/* Acabamento mais adulto */
+body { font-size: 1rem; letter-spacing: 0; font-feature-settings: "tnum" 1; }
+.marca .nome { font-size: 1.3rem; font-weight: 600; letter-spacing: -0.005em; }
+.marca .slogan { font-size: .85rem; }
+.marca img { width: 44px; height: 44px; }
+.saudacao { font-size: 1.15rem; font-weight: 500; color: var(--suave); text-transform: none; }
+.passo { padding: 20px 18px; }
+.passo h2 { font-size: 1.1rem; font-weight: 600; }
+.num { background: transparent; color: var(--azul); border: 1.5px solid var(--azul); width: 28px; height: 28px; font-size: .85rem; font-weight: 600; }
+@media (prefers-color-scheme: dark) { .num { color: var(--azul); } }
+.botao, .tipo, .aba { font-weight: 500; letter-spacing: .01em; }
+.botao.verde { font-weight: 600; }
+.cartao { padding: 16px; min-height: 96px; gap: 14px; }
+.cartao .icone { width: 52px; height: 52px; }
+.cartao .icone svg { width: 32px; height: 32px; }
+.cartao .titulo { font-size: 1.08rem; font-weight: 600; }
+.cartao .desc { font-size: .92rem; }
+.cartao .seta { font-size: 1.6rem; }
+.dica { font-size: .95rem; }
+.lista .titulo, .problema summary { font-weight: 600; }
+.resumo { font-weight: 600; font-size: 1.05rem; }
+.quant .valor { font-weight: 600; }
+.carregando .nome { font-size: 1.45rem; font-weight: 600; }
+.carregando .area { margin-top: 6px; font-size: .78rem; letter-spacing: .22em; text-transform: uppercase; color: #9fb0c5; }
+.carregando .assinatura { font-size: 1rem; letter-spacing: .08em; color: #d7e0ea; }
