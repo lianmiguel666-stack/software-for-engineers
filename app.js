@@ -17,6 +17,20 @@
     laje: [
       { chave: "altura", nome: "Espessura da laje", sub: "meça na borda da laje" },
       { chave: "vao", nome: "Menor vão", sub: "menor distância entre apoios, opcional" }
+    ],
+    escada: [
+      { chave: "altura", nome: "Altura do degrau (espelho)", sub: "de um degrau ao próximo, na vertical" },
+      { chave: "largura", nome: "Piso do degrau", sub: "onde o pé pisa, de frente para trás" },
+      { chave: "vao", nome: "Largura da escada", sub: "de um lado ao outro, opcional" }
+    ],
+    porta: [
+      { chave: "largura", nome: "Largura do vão livre", sub: "por onde a pessoa passa, com a porta aberta" },
+      { chave: "altura", nome: "Altura do vão livre", sub: "do piso até o batente de cima" }
+    ],
+    parede: [
+      { chave: "largura", nome: "Comprimento da parede", sub: "de uma ponta à outra" },
+      { chave: "altura", nome: "Altura da parede", sub: "do piso até o teto ou a viga" },
+      { chave: "vao", nome: "Espessura", sub: "com reboco, opcional" }
     ]
   };
 
@@ -33,19 +47,29 @@
   };
 
   // ---------- Tipo de peça ----------
-  document.querySelectorAll(".tipo").forEach(function (b) {
+  document.querySelectorAll("#passo1 .tipo").forEach(function (b) {
     b.addEventListener("click", function () {
-      document.querySelectorAll(".tipo").forEach(function (x) {
+      document.querySelectorAll("#passo1 .tipo").forEach(function (x) {
         x.classList.remove("ativo"); x.setAttribute("aria-pressed", "false");
       });
       b.classList.add("ativo"); b.setAttribute("aria-pressed", "true");
       estado.tipo = b.dataset.tipo;
       montarMedidas();
-      document.querySelectorAll(".so-laje").forEach(function (e) { e.hidden = estado.tipo !== "laje"; });
-      document.querySelectorAll(".nao-laje").forEach(function (e) { e.hidden = estado.tipo === "laje"; });
+      atualizarCampos();
       $("resultado").hidden = true;
     });
   });
+
+  // Mostra só as informações que fazem sentido para cada tipo de peça
+  function atualizarCampos() {
+    var t = estado.tipo;
+    var concreto = t === "viga" || t === "pilar" || t === "laje";
+    document.querySelectorAll(".estrutural").forEach(function (e) { e.hidden = !concreto; });
+    document.querySelectorAll(".so-laje").forEach(function (e) { e.hidden = t !== "laje"; });
+    document.querySelectorAll(".barras").forEach(function (e) { e.hidden = t !== "viga" && t !== "pilar"; });
+    $("passo4").hidden = !concreto;
+    $("conferirMedidas").hidden = concreto;
+  }
 
   function montarMedidas() {
     var cont = $("medidas");
@@ -113,11 +137,32 @@
   function avisar(t) { instruir(t); }
 
   // ---------- Foto ----------
-  $("foto").addEventListener("change", function (e) {
-    var f = e.target.files && e.target.files[0];
-    if (!f) return;
-    var url = URL.createObjectURL(f);
-    carregarImagem(url);
+  function abrirArquivo(f) {
+    if (!f || !/^image\//.test(f.type)) { alertaFoto(); return; }
+    carregarImagem(URL.createObjectURL(f));
+  }
+  ["foto", "fotoGaleria"].forEach(function (id) {
+    $(id).addEventListener("change", function (e) {
+      abrirArquivo(e.target.files && e.target.files[0]);
+      e.target.value = "";
+    });
+  });
+  // Arrastar a foto para a página ou colar (Ctrl+V)
+  var alvo = $("passo2");
+  ["dragenter", "dragover"].forEach(function (ev) {
+    alvo.addEventListener(ev, function (e) { e.preventDefault(); alvo.classList.add("arrastando"); });
+  });
+  ["dragleave", "drop"].forEach(function (ev) {
+    alvo.addEventListener(ev, function () { alvo.classList.remove("arrastando"); });
+  });
+  alvo.addEventListener("drop", function (e) {
+    e.preventDefault();
+    abrirArquivo(e.dataTransfer.files && e.dataTransfer.files[0]);
+  });
+  document.addEventListener("paste", function (e) {
+    if ($("peca").hidden) return;
+    var itens = (e.clipboardData && e.clipboardData.files) || [];
+    if (itens.length) abrirArquivo(itens[0]);
   });
 
   $("exemplo").addEventListener("click", function () {
@@ -372,6 +417,7 @@
   window.addEventListener("resize", desenhar);
 
   // ---------- Conferir ----------
+  $("conferirMedidas").addEventListener("click", function () { $("conferir").click(); });
   $("conferir").addEventListener("click", function () {
     var dados = {
       classe: $("classe").value,
@@ -425,4 +471,5 @@
   $("imprimir").addEventListener("click", function () { window.print(); });
 
   montarMedidas();
+  atualizarCampos();
 })();
