@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Confere Obra</title>
+<meta name="description" content="Meça vigas, pilares e lajes pela foto e confira os erros pela NBR 6118.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topo">
+  <h1>Confere Obra</h1>
+  <p>Tire uma foto, marque as medidas e veja se a peça está dentro da norma.</p>
+</header>
+
+<main>
+  <!-- PASSO 1 -->
+  <section class="passo" id="passo1">
+    <h2><span class="num">1</span> O que você quer conferir?</h2>
+    <div class="escolha" role="radiogroup" aria-label="Tipo de peça">
+      <button type="button" class="tipo ativo" data-tipo="viga" aria-pressed="true">
+        <svg viewBox="0 0 60 30" aria-hidden="true"><rect x="2" y="8" width="56" height="14" rx="1"/></svg>
+        Viga
+      </button>
+      <button type="button" class="tipo" data-tipo="pilar" aria-pressed="false">
+        <svg viewBox="0 0 60 30" aria-hidden="true"><rect x="23" y="1" width="14" height="28" rx="1"/></svg>
+        Pilar
+      </button>
+      <button type="button" class="tipo" data-tipo="laje" aria-pressed="false">
+        <svg viewBox="0 0 60 30" aria-hidden="true"><rect x="2" y="12" width="56" height="6" rx="1"/></svg>
+        Laje
+      </button>
+    </div>
+  </section>
+
+  <!-- PASSO 2 -->
+  <section class="passo" id="passo2">
+    <h2><span class="num">2</span> Foto da peça</h2>
+    <p class="dica">Fotografe <b>de frente</b>, com algo de tamanho conhecido <b>encostado na peça</b> (uma folha A4, um bloco ou uma trena aberta).</p>
+    <div class="botoes">
+      <label class="botao grande">
+        <input type="file" id="foto" accept="image/*" capture="environment" hidden>
+        Tirar ou escolher foto
+      </label>
+      <button type="button" class="botao secundario" id="exemplo">Ver um exemplo</button>
+    </div>
+
+    <div id="areaFoto" hidden>
+      <div class="instrucao" id="instrucao" aria-live="polite">Toque em “Marcar” na referência abaixo.</div>
+      <div class="tela">
+        <canvas id="canvas"></canvas>
+      </div>
+
+      <div class="ref">
+        <label for="refTipo"><b>Referência na foto</b> (algo de tamanho conhecido)</label>
+        <div class="linha">
+          <select id="refTipo">
+            <option value="29.7">Folha A4, lado maior (29,7 cm)</option>
+            <option value="21">Folha A4, lado menor (21 cm)</option>
+            <option value="39">Bloco de concreto (39 cm)</option>
+            <option value="19">Tijolo / bloco, lado de 19 cm</option>
+            <option value="210">Porta padrão, altura (2,10 m)</option>
+            <option value="outro">Outro (digitar)</option>
+          </select>
+          <input type="text" inputmode="decimal" id="refOutro" placeholder="cm" hidden aria-label="Tamanho da referência em cm">
+          <button type="button" class="botao marcar" data-medida="ref">Marcar</button>
+        </div>
+        <p class="estado" id="refEstado">Ainda não marcada.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PASSO 3 -->
+  <section class="passo" id="passo3">
+    <h2><span class="num">3</span> Medidas</h2>
+    <p class="dica">Toque em <b>Marcar</b> e depois toque nas duas pontas da medida na foto. Também pode digitar à mão.</p>
+    <div id="medidas"></div>
+  </section>
+
+  <!-- PASSO 4 -->
+  <section class="passo" id="passo4">
+    <h2><span class="num">4</span> Informações do projeto</h2>
+    <div class="campos">
+      <label>Onde fica a obra?
+        <select id="classe">
+          <option value="I">Zona rural</option>
+          <option value="II" selected>Cidade</option>
+          <option value="III">Beira-mar ou zona industrial</option>
+          <option value="IV">Respingo de maré ou indústria química</option>
+        </select>
+      </label>
+      <label>Concreto (fck)
+        <select id="fck">
+          <option value="20">C20 (20 MPa)</option>
+          <option value="25" selected>C25 (25 MPa)</option>
+          <option value="30">C30 (30 MPa)</option>
+          <option value="35">C35 (35 MPa)</option>
+          <option value="40">C40 (40 MPa)</option>
+          <option value="45">C45 (45 MPa)</option>
+          <option value="50">C50 (50 MPa)</option>
+        </select>
+      </label>
+      <label>Cobrimento (cm)
+        <input type="text" inputmode="decimal" id="cobrimento" placeholder="ex.: 3">
+      </label>
+      <label class="so-laje" hidden>Uso da laje
+        <select id="usoLaje">
+          <option value="piso" selected>Piso</option>
+          <option value="cobertura">Cobertura (forro, telhado)</option>
+          <option value="balanco">Em balanço (sacada, marquise)</option>
+          <option value="garagem">Garagem de carro</option>
+          <option value="garagemPesada">Veículos pesados</option>
+        </select>
+      </label>
+      <label class="nao-laje">Quantas barras principais
+        <input type="text" inputmode="numeric" id="nBarras" placeholder="ex.: 3">
+      </label>
+      <label class="nao-laje">Bitola da barra (mm)
+        <select id="diamBarra">
+          <option value="">Não sei</option>
+          <option>5</option><option>6.3</option><option>8</option><option selected>10</option>
+          <option>12.5</option><option>16</option><option>20</option><option>25</option>
+        </select>
+      </label>
+      <label class="nao-laje">Bitola do estribo (mm)
+        <select id="diamEstribo">
+          <option value="">Não sei</option>
+          <option selected>5</option><option>6.3</option><option>8</option><option>10</option>
+        </select>
+      </label>
+      <label class="nao-laje">Estribo a cada (cm)
+        <input type="text" inputmode="decimal" id="espEstribo" placeholder="ex.: 15">
+      </label>
+    </div>
+    <button type="button" class="botao grande verde" id="conferir">Conferir</button>
+  </section>
+
+  <!-- RESULTADO -->
+  <section class="passo" id="resultado" hidden>
+    <h2>Resultado</h2>
+    <div id="resumo" class="resumo"></div>
+    <ul id="lista" class="lista"></ul>
+    <div class="botoes">
+      <button type="button" class="botao secundario" id="imprimir">Imprimir ou salvar PDF</button>
+    </div>
+    <p class="aviso">Este app ajuda a achar erros, mas não substitui o cálculo estrutural nem a responsabilidade do engenheiro (ART). Medidas pela foto têm erro de alguns centímetros: confira com a trena antes de decidir.</p>
+  </section>
+</main>
+
+<script src="normas.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
